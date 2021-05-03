@@ -1,0 +1,72 @@
+{
+  "name": "ssr-to-html",
+  "description": "Crawl a server rendered application and output html files",
+  "version": "1.0.0",
+  "author": "Dylan Piercey <dpiercey@ebay.com>",
+  "bin": "dist/cjs/bin.js",
+  "bugs": "https://github.com/marko-js/ssr-to-html/issues",
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "arg": "^5.0.0",
+    "htmlparser2": "^6.1.0",
+    "undici": "^3.3.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "codecov": "^3.8.2",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "standard-version": "^9.2.0",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
+  },
+  "files": [
+    "dist/cjs",
+    "dist/esm"
+  ],
+  "homepage": "https://github.com/marko-js/ssr-to-html",
+  "jsnext": "dist/esm/index.js",
+  "keywords": [
+    "html",
+    "save",
+    "server",
+    "site",
+    "ssg",
+    "ssr",
+    "static",
+    "write"
+  ],
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/ssr-to-html"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "ci:report": "codecov",
+    "ci:test": "jest --ci --coverage",
+    "format": "npm run lint:eslint -- --fix && npm run lint:prettier -- --write",
+    "lint": "npm run build && npm run lint:eslint && npm run lint:prettier -- -l",
+    "lint:eslint": "eslint -f visualstudio .",
+    "lint:prettier": "prettier \"**/*{.ts,.js,.json,.md,.yml,rc}\"",
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build",
+    "release": "standard-version",
+    "test": "jest --watch",
+    "test:inspect": "node --inspect=0.0.0.0 $(which jest) --watch --runInBand --testTimeout 99999999"
+  },
+  "types": "dist/esm/index.d.ts"
+}
