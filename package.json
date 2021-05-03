@@ -9,6 +9,7 @@
     "abort-controller": "^3.0.0",
     "arg": "^5.0.0",
     "htmlparser2": "^6.1.0",
+    "tslib": "^2.2.0",
     "undici": "^3.3.6"
   },
   "devDependencies": {
