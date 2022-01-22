@@ -6,7 +6,7 @@ export default async (cmd: string, port: number): Promise<() => void> => {
     shell: true,
     stdio: "inherit",
     windowsHide: true,
-    env: { ...process.env, PORT: `${port}` }
+    env: { ...process.env, PORT: `${port}` },
   });
 
   const close = () => {
@@ -29,7 +29,7 @@ export default async (cmd: string, port: number): Promise<() => void> => {
 };
 
 function isPortInUse(port: number) {
-  return new Promise<boolean>(resolve => {
+  return new Promise<boolean>((resolve) => {
     const connection = net
       .connect(port)
       .setNoDelay(true)
@@ -44,5 +44,5 @@ function isPortInUse(port: number) {
 }
 
 function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -32,19 +32,46 @@
 
 Crawl a server rendered application and output html files.
 
-# Installation
+# Installation & Usage
 
-```console
-npm install ssr-to-html
-```
+## Globally
 
-# Usage
+_npm_
 
 ```terminal
-$ ssr-to-html --out <directory> -- <cmd>
+# Install
+npm install ssr-to-html -g
+
+# Use
+ssr-to-html <options>
 ```
 
-# Examples
+## Locally
+
+_npm_
+
+```terminal
+# Install
+npm install ssr-to-html
+
+# Use with npm 7
+npm exec -- ssr-to-html <options>
+
+# Use with npm <6
+npx ssr-to-html <options>
+```
+
+_yarn_
+
+```terminal
+# Install
+yarn install ssr-to-html
+
+# Use
+yarn ssr-to-html <options>
+```
+
+# Examples (assuming globally installed)
 
 ```terminal
 $ ssr-to-html --out ./dist -- npm start

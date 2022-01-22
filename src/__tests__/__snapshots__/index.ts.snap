@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`works 1`] = `
-Object {
-  "/404/index.html": "<!DOCTYPE html><h1>404",
-  "/bye/index.html": "<!DOCTYPE html><h1>Bye!",
-  "/index.html": "<!DOCTYPE html><h1>Hi! <a href='/bye'>Bye!",
-}
-`;

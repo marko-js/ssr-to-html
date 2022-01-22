@@ -3,41 +3,48 @@
   "description": "Crawl a server rendered application and output html files",
   "version": "1.0.0",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
-  "bin": "dist/cjs/bin.js",
+  "bin": "dist/bin.js",
   "bugs": "https://github.com/marko-js/ssr-to-html/issues",
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "arg": "^5.0.0",
-    "htmlparser2": "^6.1.0",
-    "tslib": "^2.2.0",
-    "undici": "^3.3.6"
+    "arg": "^5.0.1",
+    "htmlparser2": "^7.2.0",
+    "undici": "^4.12.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.1",
-    "@commitlint/config-conventional": "^12.1.1",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "codecov": "^3.8.2",
-    "eslint": "^7.25.0",
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "esbuild": "^0.14.13",
+    "esbuild-register": "^3.3.2",
+    "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^24.3.6",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
-    "jest": "^26.6.3",
-    "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1",
-    "standard-version": "^9.2.0",
-    "ts-jest": "^26.5.5",
-    "typescript": "^4.2.4"
+    "fast-glob": "^3.2.11",
+    "fixpack": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.2.2",
+    "mocha": "^9.1.4",
+    "mocha-snap": "^4.2.4",
+    "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "semantic-release": "^19.0.2",
+    "typescript": "^4.5.5"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    }
   },
   "files": [
-    "dist/cjs",
-    "dist/esm"
+    "dist",
+    "!**/__tests__",
+    "!**/*.tsbuildinfo"
   ],
   "homepage": "https://github.com/marko-js/ssr-to-html",
-  "jsnext": "dist/esm/index.js",
   "keywords": [
     "html",
     "save",
@@ -49,25 +56,27 @@
     "write"
   ],
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/marko-js/ssr-to-html"
   },
   "scripts": {
-    "build": "tsc -b",
-    "ci:report": "codecov",
-    "ci:test": "jest --ci --coverage",
-    "format": "npm run lint:eslint -- --fix && npm run lint:prettier -- --write",
-    "lint": "npm run build && npm run lint:eslint && npm run lint:prettier -- -l",
+    "build": "tsc -b && node -r esbuild-register build",
+    "ci:test": "nyc npm run mocha -- --forbid-pending --forbid-only",
+    "format": "npm run lint:eslint -- --fix && npm run lint:prettier -- --write && (fixpack || true)",
+    "lint": "tsc -b && npm run lint:eslint && npm run lint:prettier -- -l && fixpack",
     "lint:eslint": "eslint -f visualstudio .",
-    "lint:prettier": "prettier \"**/*{.ts,.js,.json,.md,.yml,rc}\"",
+    "lint:prettier": "prettier '**/*{.ts,.js,.json,.md,.yml,rc}'",
+    "mocha": "NODE_ENV=test mocha 'src/**/__tests__/*.test.ts'",
     "prepare": "husky install",
     "prepublishOnly": "npm run build",
-    "release": "standard-version",
-    "test": "jest --watch",
-    "test:inspect": "node --inspect=0.0.0.0 $(which jest) --watch --runInBand --testTimeout 99999999"
+    "release": "semantic-release",
+    "report": "open ./coverage/lcov-report/index.html",
+    "test": "npm run mocha -- --watch",
+    "test:inspect": "npm test -- --inspect",
+    "test:update": "npm run mocha -- --update"
   },
-  "types": "dist/esm/index.d.ts"
+  "types": "dist/index.d.ts"
 }

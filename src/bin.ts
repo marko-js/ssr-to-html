@@ -12,7 +12,7 @@ const opts = arg(
     "--help": Boolean,
     "-o": "--out",
     "-p": "--path",
-    "-h": "--help"
+    "-h": "--help",
   },
   { permissive: false, argv: process.argv.slice(2) }
 );
@@ -46,9 +46,9 @@ Examples
       out: opts["--out"],
       port: opts["--port"],
       paths: opts["--path"],
-      notFoundPath: opts["--404"]
+      notFoundPath: opts["--404"],
     });
-  })().catch(err => {
+  })().catch((err) => {
     console.error(err);
     process.exit(1);
   });

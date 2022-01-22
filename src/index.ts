@@ -26,7 +26,7 @@ export default async function crawl(opts: Options): Promise<void> {
   const notFoundPath = resolvePath(opts.notFoundPath || "/404/", origin)!;
   const startPaths = opts.paths
     ? (opts.paths
-        .map(path => resolvePath(path, origin))
+        .map((path) => resolvePath(path, origin))
         .concat(notFoundPath) as string[])
     : ["/", notFoundPath];
   const seen = new Set(startPaths);
@@ -56,7 +56,7 @@ export default async function crawl(opts: Options): Promise<void> {
           seen.add(path);
           queue.push(visit(path));
         }
-      }
+      },
     });
 
     const dirname = nodePath.join(out, path);
@@ -68,7 +68,7 @@ export default async function crawl(opts: Options): Promise<void> {
         path,
         method: "GET",
         signal: abortController.signal,
-        headers: { accept: contentType }
+        headers: { accept: contentType },
       });
 
       if (!res.headers["content-type"]?.includes(contentType)) {
@@ -178,7 +178,7 @@ function resolvePath(href: string, origin: string) {
 }
 
 async function getAvailablePort() {
-  return new Promise<number>(resolve => {
+  return new Promise<number>((resolve) => {
     const server = net.createServer().listen(0, () => {
       const { port } = server.address() as net.AddressInfo;
       server.close(() => resolve(port));
