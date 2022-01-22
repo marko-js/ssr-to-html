@@ -5,7 +5,6 @@ import { Pool } from "undici";
 import { Parser } from "htmlparser2";
 import { AbortController } from "abort-controller";
 import startServer from "./start-server";
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 const ignoredRels = new Set(["nofollow", "enclosure", "external"]);
 const contentType = "text/html";
