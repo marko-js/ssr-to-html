@@ -13,14 +13,15 @@ interface Options {
   out: string;
   cmd: string;
   port?: number;
+  wait?: number;
   paths?: string[];
   notFoundPath?: string;
 }
 
 export default async function crawl(opts: Options): Promise<void> {
-  const { port = await getAvailablePort() } = opts;
+  const { port = await getAvailablePort(), wait = 30000 } = opts;
   const origin = `http://localhost:${port}`;
-  const closeServer = await startServer(opts.cmd, port);
+  const closeServer = await startServer(opts.cmd, port, wait);
   const out = nodePath.resolve(opts.out);
   const notFoundPath = resolvePath(opts.notFoundPath || "/404/", origin)!;
   const startPaths = opts.paths

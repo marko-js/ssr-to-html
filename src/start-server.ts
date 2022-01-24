@@ -1,7 +1,11 @@
 import net from "net";
 import cp from "child_process";
 
-export default async (cmd: string, port: number): Promise<() => void> => {
+export default async (
+  cmd: string,
+  port: number,
+  wait: number
+): Promise<() => void> => {
   const proc = cp.spawn(cmd, {
     shell: true,
     stdio: "inherit",
@@ -14,15 +18,17 @@ export default async (cmd: string, port: number): Promise<() => void> => {
     proc.kill();
   };
 
-  let tries = 0;
+  let remaining = wait > 0 ? wait : Infinity;
   while (!(await isPortInUse(port))) {
-    if (++tries === 50) {
+    if (remaining >= 100) {
+      remaining -= 100;
+      await sleep(100);
+    } else {
       close();
       throw new Error(
         `site-write: timeout while wating for server to start on port "${port}".`
       );
     }
-    await sleep(100);
   }
 
   return close;

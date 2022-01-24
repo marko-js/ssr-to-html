@@ -82,11 +82,14 @@ Once the server has started, we crawl the site starting from `/` and output `.ht
 
 # Options
 
-- `--out, -o` The directory that the ".html" files will be written to
-- `--port` The port of the server to connect to. This also sets `process.env.PORT` and defaults to a random available port
-- `--path, -p` An additional path to crawl (by default will crawl from /)
-- `--404` The path to the 404 page (default /404/)
-- `--help, -h` Shows helpful information
+| Option       | Details                                                                                                                                       |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--out, -o`  | The directory that the ".html" files will be written to.                                                                                      |
+| `--port`     | The port of the server to connect to. This also sets "process.env.PORT". (default to a random available port)                                 |
+| `--wait`     | The total amount of time in ms to wait for the server to start on the specified port. Setting to 0 will disable this timeout. (default 30000) |
+| `--path, -p` | An additional path to crawl. (default will crawl from /)                                                                                      |
+| `--404`      | The path to the 404 page. (default /404/)                                                                                                     |
+| `--help, -h` | Shows helpful information.                                                                                                                    |
 
 # Code of Conduct
 

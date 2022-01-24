@@ -7,6 +7,7 @@ const opts = arg(
   {
     "--out": String,
     "--port": Number,
+    "--wait": Number,
     "--path": [String],
     "--404": String,
     "--help": Boolean,
@@ -23,11 +24,12 @@ Usage
   $ ssr-to-html --out ./dist -- <cmd>
 
 Options
-  --out, -o  The directory that the ".html" files will be written to
-  --port  The port of the server to connect to. This also sets "process.env.PORT" and defaults to a random available port
-  --path, -p  An additional path to crawl (by default will crawl from /)
-  --404  The path to the 404 page (default /404/)
-  --help, -h  Shows this message
+  --out, -o  The directory that the ".html" files will be written to.
+  --port  The port of the server to connect to. This also sets "process.env.PORT". Setting to 0 will disable this timeout. (default to a random available port)
+  --wait  The total amount of time in ms to wait for the server to start on the specified port. (default 30000)
+  --path, -p  An additional path to crawl. (default will crawl from /)
+  --404  The path to the 404 page. (default /404/)
+  --help, -h  Shows this message.
 
 Examples
   $ ssr-to-html --out ./dist -- npm start
@@ -38,13 +40,14 @@ Examples
   (async () => {
     if (!opts["--out"]) {
       throw new Error(
-        "The --dist option is required and specifies where files should be output."
+        "The --out option is required and specifies where files should be output."
       );
     }
     await toHTML({
       cmd: opts._.join(" "),
       out: opts["--out"],
       port: opts["--port"],
+      wait: opts["--wait"],
       paths: opts["--path"],
       notFoundPath: opts["--404"],
     });
